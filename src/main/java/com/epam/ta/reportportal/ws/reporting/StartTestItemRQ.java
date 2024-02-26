@@ -35,7 +35,8 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -62,7 +63,7 @@ public class StartTestItemRQ extends StartRQ {
 
 	@NotNull
 	@JsonAlias({ "launchUuid", "launch_id" })
-	@ApiModelProperty(value = "UUID of parent launch", required = true)
+	@Schema(description = "UUID of parent launch", requiredMode = RequiredMode.REQUIRED)
 	private String launchUuid;
 
 	@NotNull
@@ -71,7 +72,7 @@ public class StartTestItemRQ extends StartRQ {
 	@JsonDeserialize(using = UpperCaseTypeDeserializer.class)
 	@In(allowedValues = { "suite", "story", "test", "scenario", "step", "before_class", "before_groups", "before_method", "before_suite",
 			"before_test", "after_class", "after_groups", "after_method", "after_suite", "after_test" })
-	@ApiModelProperty(required = true, allowableValues = "SUITE, STORY, TEST, SCENARIO, STEP, BEFORE_CLASS, BEFORE_GROUPS,"
+	@Schema(requiredMode = RequiredMode.REQUIRED, allowableValues = "SUITE, STORY, TEST, SCENARIO, STEP, BEFORE_CLASS, BEFORE_GROUPS,"
 			+ "BEFORE_METHOD, BEFORE_SUITE, BEFORE_TEST, AFTER_CLASS, AFTER_GROUPS, AFTER_METHOD, AFTER_SUITE, AFTER_TEST")
 	private String type;
 

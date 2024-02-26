@@ -41,23 +41,23 @@ wrapper {
 }
 
 dependencies {
-    compile "io.swagger:swagger-annotations:${swaggerAnnotationsVersion}"
-    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
-    compile "javax.validation:validation-api:${validationApiVersion}"
-    compile "org.apache.commons:commons-lang3:${commonsLangVersion}"
-    compile group: 'com.google.guava', name: 'guava', version: '28.2-jre'
+    dependencies {
+        implementation "org.springdoc:springdoc-openapi-data-rest:${sprindocAnnotationsVersion}"
+        implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+        implementation "javax.validation:validation-api:${validationApiVersion}"
+        implementation "org.apache.commons:commons-lang3:${commonsLangVersion}"
+        implementation group: 'com.google.guava', name: 'guava', version: '28.2-jre'
 
-    testImplementation "junit:junit:${junitVersion}"
-    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiter}"
-    testImplementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
-    testImplementation "javax.el:javax.el-api:${elApiVersion}"
-    testImplementation "org.glassfish:javax.el:${elApiVersion}"
+        testImplementation "junit:junit:${junitVersion}"
+        testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiter}"
+        testImplementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
+        testImplementation "javax.el:javax.el-api:${elApiVersion}"
+        testImplementation "org.glassfish:javax.el:${elApiVersion}"
+    }
+
+    dependencyCheck {
+        formats = [ReportGenerator.Format.HTML, ReportGenerator.Format.XML]
+    }
 }
-
-dependencyCheck {
-    formats = [ReportGenerator.Format.HTML, ReportGenerator.Format.XML]
-}
-
-
 
 

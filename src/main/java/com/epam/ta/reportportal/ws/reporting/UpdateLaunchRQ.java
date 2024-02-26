@@ -22,7 +22,7 @@ import static com.epam.ta.reportportal.ws.reporting.ValidationConstraints.MAX_PA
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
@@ -36,7 +36,7 @@ import javax.validation.constraints.Size;
 public class UpdateLaunchRQ {
 
   @JsonProperty("mode")
-  @ApiModelProperty(allowableValues = "DEFAULT, DEBUG")
+  @Schema(allowableValues = "DEFAULT, DEBUG")
   private Mode mode;
 
   @JsonProperty("description")

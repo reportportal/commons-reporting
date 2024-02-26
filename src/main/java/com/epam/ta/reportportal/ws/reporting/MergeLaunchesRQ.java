@@ -23,7 +23,8 @@ import com.epam.ta.reportportal.ws.annotations.NotBlankWithSize;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import java.util.Date;
 import java.util.Set;
 import javax.validation.Valid;
@@ -36,7 +37,7 @@ public class MergeLaunchesRQ {
 
   @NotBlankWithSize(min = ValidationConstraints.MIN_LAUNCH_NAME_LENGTH, max = ValidationConstraints.MAX_NAME_LENGTH)
   @JsonProperty(value = "name", required = true)
-  @ApiModelProperty(required = true)
+  @Schema(requiredMode = RequiredMode.REQUIRED)
   private String name;
 
   @JsonProperty(value = "description")
@@ -48,7 +49,7 @@ public class MergeLaunchesRQ {
   private Set<ItemAttributeResource> attributes;
 
   @JsonProperty(value = "startTime")
-  @ApiModelProperty
+  @Schema
   private Date startTime;
 
   @JsonProperty("mode")
@@ -56,16 +57,16 @@ public class MergeLaunchesRQ {
 
   @NotEmpty
   @JsonProperty(value = "launches", required = true)
-  @ApiModelProperty(required = true)
+  @Schema(requiredMode = RequiredMode.REQUIRED)
   private Set<Long> launches;
 
   @JsonProperty(value = "endTime")
-  @ApiModelProperty
+  @Schema
   private Date endTime;
 
   @NotNull
   @JsonProperty("mergeType")
-  @ApiModelProperty(allowableValues = "BASIC, DEEP")
+  @Schema(allowableValues = "BASIC, DEEP")
   private String mergeStrategyType;
 
   @JsonProperty(value = "extendSuitesDescription", required = true)

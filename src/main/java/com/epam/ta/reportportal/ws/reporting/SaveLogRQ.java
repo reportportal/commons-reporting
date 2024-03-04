@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import java.time.Instant;
 import java.util.Arrays;
-import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -48,7 +48,7 @@ public class SaveLogRQ {
   @NotNull
   @JsonProperty(value = "time", required = true)
   @Schema(requiredMode = RequiredMode.REQUIRED)
-  private Date logTime;
+  private Instant logTime;
 
   @JsonProperty(value = "message")
   private String message;
@@ -59,62 +59,6 @@ public class SaveLogRQ {
 
   @JsonProperty(value = "file")
   private File file;
-
-  public String getUuid() {
-    return uuid;
-  }
-
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
-  }
-
-  public Date getLogTime() {
-    return logTime;
-  }
-
-  public void setLogTime(Date logTime) {
-    this.logTime = logTime;
-  }
-
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public String getItemUuid() {
-    return itemUuid;
-  }
-
-  public void setItemUuid(String itemUuid) {
-    this.itemUuid = itemUuid;
-  }
-
-  public String getLaunchUuid() {
-    return launchUuid;
-  }
-
-  public void setLaunchUuid(String launchUuid) {
-    this.launchUuid = launchUuid;
-  }
-
-  public void setLevel(String level) {
-    this.level = level;
-  }
-
-  public String getLevel() {
-    return level;
-  }
-
-  public void setFile(File file) {
-    this.file = file;
-  }
-
-  public File getFile() {
-    return file;
-  }
 
   @JsonInclude(Include.NON_NULL)
   public static class File {

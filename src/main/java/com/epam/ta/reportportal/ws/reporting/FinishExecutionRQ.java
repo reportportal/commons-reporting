@@ -19,17 +19,22 @@ package com.epam.ta.reportportal.ws.reporting;
 import static com.epam.ta.reportportal.ws.reporting.ValidationConstraints.MAX_PARAMETERS_LENGTH;
 
 import com.epam.ta.reportportal.ws.annotations.In;
+import com.epam.ta.reportportal.ws.reporting.deserializers.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Finishes some entity execution in Report Portal<br> May be Launch, TestSuite, Test, TestStep
@@ -37,13 +42,17 @@ import javax.validation.constraints.Size;
  * @author Andrei Varabyeu
  */
 @JsonInclude(Include.NON_NULL)
+@Getter
+@Setter
+@ToString
 public class FinishExecutionRQ {
 
   @NotNull
   @JsonProperty(value = "endTime", required = true)
   @JsonAlias({"endTime", "end_time"})
   @Schema(requiredMode = RequiredMode.REQUIRED)
-  private Date endTime;
+  @JsonDeserialize(using = MultiFormatDateDeserializer.class)
+  private Instant endTime;
 
   @JsonProperty(value = "status")
   @In(allowedValues = {"passed", "failed", "stopped", "skipped", "interrupted", "cancelled", "info",
@@ -60,44 +69,4 @@ public class FinishExecutionRQ {
   @JsonAlias({"attributes", "tags"})
   private Set<ItemAttributesRQ> attributes;
 
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public Set<ItemAttributesRQ> getAttributes() {
-    return attributes;
-  }
-
-  public void setAttributes(Set<ItemAttributesRQ> attributes) {
-    this.attributes = attributes;
-  }
-
-  public Date getEndTime() {
-    return endTime;
-  }
-
-  public void setEndTime(Date endTime) {
-    this.endTime = endTime;
-  }
-
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  @Override
-  public String toString() {
-    return "FinishExecutionRQ{" + "endTime=" + endTime
-        + ", status='" + status + '\''
-        + ", description='" + description + '\''
-        + ", attributes=" + attributes
-        + '}';
-  }
 }

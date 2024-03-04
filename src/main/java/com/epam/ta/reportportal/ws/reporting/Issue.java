@@ -20,11 +20,16 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Objects;
 import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Test item issue
@@ -32,6 +37,8 @@ import javax.validation.constraints.Size;
  * @author Dzianis Shlychkou
  */
 @JsonInclude(Include.NON_NULL)
+@Data
+@NoArgsConstructor
 public class Issue {
 
   @NotBlank
@@ -55,6 +62,10 @@ public class Issue {
   private Set<ExternalSystemIssue> externalSystemIssues;
 
   @JsonInclude(Include.NON_NULL)
+  @Getter
+  @Setter
+  @EqualsAndHashCode
+  @ToString
   public static class ExternalSystemIssue {
 
     @NotBlank
@@ -79,132 +90,6 @@ public class Issue {
     @JsonProperty(value = "pluginName")
     private String pluginName;
 
-    public void setTicketId(String ticketId) {
-      this.ticketId = ticketId;
-    }
-
-    public String getTicketId() {
-      return ticketId;
-    }
-
-    public Long getSubmitDate() {
-      return submitDate;
-    }
-
-    public void setSubmitDate(Long submitDate) {
-      this.submitDate = submitDate;
-    }
-
-    public String getBtsUrl() {
-      return btsUrl;
-    }
-
-    public void setBtsUrl(String btsUrl) {
-      this.btsUrl = btsUrl;
-    }
-
-    public String getBtsProject() {
-      return btsProject;
-    }
-
-    public void setBtsProject(String btsProject) {
-      this.btsProject = btsProject;
-    }
-
-    public void setUrl(String value) {
-      this.url = value;
-    }
-
-    public String getUrl() {
-      return url;
-    }
-
-    public String getPluginName() {
-      return pluginName;
-    }
-
-    public void setPluginName(String pluginName) {
-      this.pluginName = pluginName;
-    }
-
-    @Override
-    public String toString() {
-      return "ExternalSystemIssue{" + "ticketId='" + ticketId + '\'' + ", submitDate=" + submitDate
-          + ", btsUrl='" + btsUrl + '\''
-          + ", btsProject='" + btsProject + '\'' + ", url='" + url + '\'' + ", pluginName='"
-          + pluginName + '\'' + '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-      ExternalSystemIssue that = (ExternalSystemIssue) o;
-      return Objects.equals(ticketId, that.ticketId) && Objects.equals(submitDate, that.submitDate)
-          && Objects.equals(btsUrl,
-          that.btsUrl
-      ) && Objects.equals(btsProject, that.btsProject) && Objects.equals(url, that.url)
-          && Objects.equals(pluginName,
-          that.pluginName
-      );
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(ticketId, submitDate, btsUrl, btsProject, url, pluginName);
-    }
   }
 
-  public void setExternalSystemIssues(Set<ExternalSystemIssue> externalSystemIssues) {
-    this.externalSystemIssues = externalSystemIssues;
-  }
-
-  public Set<ExternalSystemIssue> getExternalSystemIssues() {
-    return externalSystemIssues;
-  }
-
-  public String getIssueType() {
-    return issueType;
-  }
-
-  public void setIssueType(String issueType) {
-    this.issueType = issueType;
-  }
-
-  public String getComment() {
-    return comment;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
-  }
-
-  public boolean getAutoAnalyzed() {
-    return autoAnalyzed;
-  }
-
-  public void setAutoAnalyzed(boolean autoAnalyzed) {
-    this.autoAnalyzed = autoAnalyzed;
-  }
-
-  public boolean getIgnoreAnalyzer() {
-    return ignoreAnalyzer;
-  }
-
-  public void setIgnoreAnalyzer(boolean ignoreAnalyzer) {
-    this.ignoreAnalyzer = ignoreAnalyzer;
-  }
-
-  @Override
-  public String toString() {
-    return "Issue{" + "issueType='" + issueType + '\''
-        + ", comment='" + comment + '\''
-        + ", autoAnalyzed='" + autoAnalyzed + "'"
-        + ", externalSystemIssues=" + externalSystemIssues
-        + '}';
-  }
 }

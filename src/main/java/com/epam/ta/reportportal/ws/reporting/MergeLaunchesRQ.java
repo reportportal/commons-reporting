@@ -20,9 +20,11 @@ package com.epam.ta.reportportal.ws.reporting;
 import static com.epam.ta.reportportal.ws.reporting.ValidationConstraints.MAX_PARAMETERS_LENGTH;
 
 import com.epam.ta.reportportal.ws.annotations.NotBlankWithSize;
+import com.epam.ta.reportportal.ws.reporting.deserializers.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import java.time.Instant;
@@ -56,6 +58,7 @@ public class MergeLaunchesRQ {
 
   @JsonProperty(value = "startTime")
   @Schema
+  @JsonDeserialize(using = MultiFormatDateDeserializer.class)
   private Instant startTime;
 
   @JsonProperty("mode")
@@ -68,6 +71,7 @@ public class MergeLaunchesRQ {
 
   @JsonProperty(value = "endTime")
   @Schema
+  @JsonDeserialize(using = MultiFormatDateDeserializer.class)
   private Instant endTime;
 
   @NotNull

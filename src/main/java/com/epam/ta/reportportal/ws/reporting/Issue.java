@@ -16,10 +16,13 @@
 
 package com.epam.ta.reportportal.ws.reporting;
 
+import com.epam.ta.reportportal.ws.reporting.deserializers.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.time.Instant;
 import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -73,7 +76,8 @@ public class Issue {
     private String ticketId;
 
     @JsonProperty(value = "submitDate")
-    private Long submitDate;
+    @JsonDeserialize(using = MultiFormatDateDeserializer.class)
+    private Instant submitDate;
 
     @NotBlank
     @JsonProperty(value = "btsUrl")

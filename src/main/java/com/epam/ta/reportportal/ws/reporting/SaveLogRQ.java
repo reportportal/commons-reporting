@@ -16,11 +16,13 @@
 
 package com.epam.ta.reportportal.ws.reporting;
 
+import com.epam.ta.reportportal.ws.reporting.deserializers.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import java.time.Instant;
@@ -48,6 +50,7 @@ public class SaveLogRQ {
   @NotNull
   @JsonProperty(value = "time", required = true)
   @Schema(requiredMode = RequiredMode.REQUIRED)
+  @JsonDeserialize(using = MultiFormatDateDeserializer.class)
   private Instant logTime;
 
   @JsonProperty(value = "message")

@@ -16,7 +16,7 @@
 
 package com.epam.ta.reportportal.ws.reporting;
 
-import com.epam.ta.reportportal.ws.reporting.deserializers.MultiFormatDateDeserializer;
+import com.epam.ta.reportportal.ws.reporting.databind.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,14 +26,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import java.time.Instant;
-import java.util.Arrays;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author Henadzi_Vrubleuski
  * @author Andrei Varabyeu
  */
 @JsonInclude(Include.NON_NULL)
+@Getter
+@Setter
+@ToString
 public class SaveLogRQ {
 
   @JsonProperty("uuid")
@@ -64,6 +69,9 @@ public class SaveLogRQ {
   private File file;
 
   @JsonInclude(Include.NON_NULL)
+  @Getter
+  @Setter
+  @ToString
   public static class File {
 
     @JsonProperty(value = "name")
@@ -75,48 +83,6 @@ public class SaveLogRQ {
     @JsonIgnore
     private String contentType;
 
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public byte[] getContent() {
-      return content;
-    }
-
-    public void setContent(byte[] content) {
-      this.content = content;
-    }
-
-    public String getContentType() {
-      return contentType;
-    }
-
-    public void setContentType(String contentType) {
-      this.contentType = contentType;
-    }
-
-    @Override
-    public String toString() {
-      return "File{" + "name='" + name + '\''
-          + ", content=" + Arrays.toString(content)
-          + ", contentType='" + contentType + '\''
-          + '}';
-    }
   }
 
-  @Override
-  public String toString() {
-    return "SaveLogRQ{" + "uuid='" + uuid + '\''
-        + ", itemUuid='" + itemUuid + '\''
-        + ", launchUuid='" + launchUuid + '\''
-        + ", logTime=" + logTime
-        + ", message='" + message + '\''
-        + ", level='" + level + '\''
-        + ", file=" + file
-        + '}';
-  }
 }

@@ -19,7 +19,7 @@ package com.epam.ta.reportportal.ws.reporting;
 import static com.epam.ta.reportportal.ws.reporting.ValidationConstraints.MAX_PARAMETERS_LENGTH;
 
 import com.epam.ta.reportportal.ws.annotations.In;
-import com.epam.ta.reportportal.ws.reporting.deserializers.MultiFormatDateDeserializer;
+import com.epam.ta.reportportal.ws.reporting.databind.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

@@ -1,9 +1,25 @@
-package com.epam.ta.reportportal.ws.reporting.deserializers;
+/*
+ * Copyright 2024 EPAM Systems
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
+package com.epam.ta.reportportal.ws.reporting.deserializers;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.epam.ta.reportportal.ws.reporting.databind.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import java.io.IOException;
@@ -44,9 +60,6 @@ class MultiFormatDateDeserializerTest {
   @ParameterizedTest
   @ValueSource(longs = {
       1709324649930L,
-      //    1709324649930654L,
-      // 1709324649930654321L
-
   })
   void deserializeIntegerFormat(Long longDate) throws IOException {
     MultiFormatDateDeserializer a = new MultiFormatDateDeserializer();

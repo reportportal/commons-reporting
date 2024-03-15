@@ -16,22 +16,29 @@
 
 package com.epam.ta.reportportal.ws.reporting;
 
+import com.epam.ta.reportportal.ws.reporting.databind.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import java.util.Arrays;
-import java.util.Date;
+import java.time.Instant;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author Henadzi_Vrubleuski
  * @author Andrei Varabyeu
  */
 @JsonInclude(Include.NON_NULL)
+@Getter
+@Setter
+@ToString
 public class SaveLogRQ {
 
   @JsonProperty("uuid")
@@ -48,7 +55,8 @@ public class SaveLogRQ {
   @NotNull
   @JsonProperty(value = "time", required = true)
   @Schema(requiredMode = RequiredMode.REQUIRED)
-  private Date logTime;
+  @JsonDeserialize(using = MultiFormatDateDeserializer.class)
+  private Instant logTime;
 
   @JsonProperty(value = "message")
   private String message;
@@ -60,63 +68,10 @@ public class SaveLogRQ {
   @JsonProperty(value = "file")
   private File file;
 
-  public String getUuid() {
-    return uuid;
-  }
-
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
-  }
-
-  public Date getLogTime() {
-    return logTime;
-  }
-
-  public void setLogTime(Date logTime) {
-    this.logTime = logTime;
-  }
-
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public String getItemUuid() {
-    return itemUuid;
-  }
-
-  public void setItemUuid(String itemUuid) {
-    this.itemUuid = itemUuid;
-  }
-
-  public String getLaunchUuid() {
-    return launchUuid;
-  }
-
-  public void setLaunchUuid(String launchUuid) {
-    this.launchUuid = launchUuid;
-  }
-
-  public void setLevel(String level) {
-    this.level = level;
-  }
-
-  public String getLevel() {
-    return level;
-  }
-
-  public void setFile(File file) {
-    this.file = file;
-  }
-
-  public File getFile() {
-    return file;
-  }
-
   @JsonInclude(Include.NON_NULL)
+  @Getter
+  @Setter
+  @ToString
   public static class File {
 
     @JsonProperty(value = "name")
@@ -128,48 +83,6 @@ public class SaveLogRQ {
     @JsonIgnore
     private String contentType;
 
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public byte[] getContent() {
-      return content;
-    }
-
-    public void setContent(byte[] content) {
-      this.content = content;
-    }
-
-    public String getContentType() {
-      return contentType;
-    }
-
-    public void setContentType(String contentType) {
-      this.contentType = contentType;
-    }
-
-    @Override
-    public String toString() {
-      return "File{" + "name='" + name + '\''
-          + ", content=" + Arrays.toString(content)
-          + ", contentType='" + contentType + '\''
-          + '}';
-    }
   }
 
-  @Override
-  public String toString() {
-    return "SaveLogRQ{" + "uuid='" + uuid + '\''
-        + ", itemUuid='" + itemUuid + '\''
-        + ", launchUuid='" + launchUuid + '\''
-        + ", logTime=" + logTime
-        + ", message='" + message + '\''
-        + ", level='" + level + '\''
-        + ", file=" + file
-        + '}';
-  }
 }

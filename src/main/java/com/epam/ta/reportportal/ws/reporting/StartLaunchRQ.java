@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.Objects;
 
 @JsonInclude(Include.NON_NULL)
 public class StartLaunchRQ extends StartRQ {
@@ -34,6 +35,9 @@ public class StartLaunchRQ extends StartRQ {
   @JsonProperty("rerunOf")
   @Schema(description = "UUID of desired launch to rerun")
   private String rerunOf;
+
+  @JsonProperty("important")
+  private boolean important;
 
   @Override
   @NotBlankWithSize(min = ValidationConstraints.MIN_LAUNCH_NAME_LENGTH, max = ValidationConstraints.MAX_NAME_LENGTH)
@@ -65,6 +69,14 @@ public class StartLaunchRQ extends StartRQ {
     this.rerunOf = rerunOf;
   }
 
+  public boolean isImportant() {
+    return important;
+  }
+
+  public void setImportant(boolean important) {
+    this.important = important;
+  }
+
   @Override
   public String toString() {
     return "StartLaunchRQ{" + "mode=" + mode
@@ -90,10 +102,13 @@ public class StartLaunchRQ extends StartRQ {
     if (rerun != that.rerun) {
       return false;
     }
+    if (important != that.important) {
+      return false;
+    }
     if (mode != that.mode) {
       return false;
     }
-    return rerunOf != null ? rerunOf.equals(that.rerunOf) : that.rerunOf == null;
+    return Objects.equals(rerunOf, that.rerunOf);
   }
 
   @Override
@@ -101,6 +116,7 @@ public class StartLaunchRQ extends StartRQ {
     int result = super.hashCode();
     result = 31 * result + (mode != null ? mode.hashCode() : 0);
     result = 31 * result + (rerun ? 1 : 0);
+    result = 31 * result + (important ? 1 : 0);
     result = 31 * result + (rerunOf != null ? rerunOf.hashCode() : 0);
     return result;
   }

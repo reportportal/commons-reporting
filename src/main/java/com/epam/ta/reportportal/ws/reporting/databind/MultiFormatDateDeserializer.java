@@ -21,8 +21,11 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -40,41 +43,23 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
 
   @Override
   public Instant deserialize(JsonParser parser, DeserializationContext context) throws IOException {
-    try {
-      long longDate = parser.getLongValue();
-      if (longDate > 0) {
-        return Instant.ofEpochMilli(longDate);
-      }
-    } catch (Exception e) {
-      // do nothing
+
+    long longDate = parser.getLongValue();
+    if (longDate > 0) {
+      return Instant.ofEpochMilli(longDate);
     }
 
     String strDate = parser.getText();
-    try {
-      return Instant.from(DateTimeFormatter.ISO_DATE_TIME.parse(strDate));
-    } catch (Exception e) {
-      // do nothing
-    }
-    try {
-      return Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(strDate));
-    } catch (DateTimeParseException e) {
-      // do nothing
-    }
+    DateTimeFormatter formatter =
+        new DateTimeFormatterBuilder().appendOptional(DateTimeFormatter.RFC_1123_DATE_TIME)
+            .appendOptional(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+            .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
+            .appendOptional(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            .appendOptional(TIMESTAMP_FORMAT)
+            .appendOptional(LOCAL_DATE_TIME_MS_FORMAT)
+            .toFormatter();
 
-    try {
-      return Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(strDate));
-    } catch (DateTimeParseException e) {
-      // do nothing
-    }
-
-    try {
-      return Instant.from(LOCAL_DATE_TIME_MS_FORMAT.parse(strDate));
-    } catch (DateTimeParseException e) {
-      // do nothing
-    }
-
-    // without try catch block for the last one attempt
-    return Instant.from(TIMESTAMP_FORMAT.parse(strDate));
+    return LocalDateTime.from(formatter.parse(strDate)).toInstant(ZoneOffset.UTC);
 
   }
 }

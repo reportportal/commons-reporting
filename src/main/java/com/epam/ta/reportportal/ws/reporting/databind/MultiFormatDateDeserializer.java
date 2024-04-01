@@ -43,6 +43,15 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
   @Override
   public Instant deserialize(JsonParser parser, DeserializationContext context) throws IOException {
     try {
+      long longDate = parser.getLongValue();
+      if (parser.getText() == null) {
+        return Instant.ofEpochMilli(longDate);
+      }
+      // ignore
+    } catch (Exception e) {
+      // ignore
+    }
+    try {
       long millis = Long.parseLong(parser.getText());
       return Instant.ofEpochMilli(millis);
     } catch (Exception e) {

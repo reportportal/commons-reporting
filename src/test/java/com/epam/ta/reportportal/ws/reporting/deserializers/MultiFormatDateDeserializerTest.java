@@ -48,6 +48,7 @@ class MultiFormatDateDeserializerTest {
       "2024-03-01T20:24:09.930Z",
       "2024-03-01T20:24:09.930",
       "2024-03-01T20:24:09.930+00:00",
+      "1709324649930"
   })
   void deserializeDates(String strDate) throws IOException {
     MultiFormatDateDeserializer a = new MultiFormatDateDeserializer();

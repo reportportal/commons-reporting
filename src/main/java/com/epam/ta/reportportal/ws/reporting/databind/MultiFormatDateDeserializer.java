@@ -26,7 +26,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
 
 /**
  * Deserialization class for parsing incoming dates of different formats.
@@ -47,6 +46,12 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
     long longDate = parser.getLongValue();
     if (longDate > 0) {
       return Instant.ofEpochMilli(longDate);
+    }
+    try {
+      long millis = Long.parseLong(parser.getText());
+      return Instant.ofEpochMilli(millis);
+    } catch (NumberFormatException e) {
+      // ignore
     }
 
     String strDate = parser.getText();

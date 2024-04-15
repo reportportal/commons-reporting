@@ -46,13 +46,21 @@ dependencies {
         implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
         implementation "javax.validation:validation-api:${validationApiVersion}"
         implementation "org.apache.commons:commons-lang3:${commonsLangVersion}"
-        implementation group: 'com.google.guava', name: 'guava', version: '28.2-jre'
 
         testImplementation "junit:junit:${junitVersion}"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
+        testImplementation "org.junit.jupiter:junit-jupiter-params:${jupiterVersion}"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
         testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiter}"
         testImplementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
         testImplementation "javax.el:javax.el-api:${elApiVersion}"
         testImplementation "org.glassfish:javax.el:${elApiVersion}"
+
+        // add lombok support
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
 
     dependencyCheck {
@@ -60,4 +68,6 @@ dependencies {
     }
 }
 
-
+test {
+    useJUnitPlatform()
+}

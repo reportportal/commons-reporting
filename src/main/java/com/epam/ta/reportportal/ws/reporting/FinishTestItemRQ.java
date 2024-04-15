@@ -22,8 +22,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import javax.validation.Valid;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @JsonInclude(Include.NON_NULL)
+@Getter
+@Setter
+@ToString
 public class FinishTestItemRQ extends FinishExecutionRQ {
 
   @Valid
@@ -43,53 +49,4 @@ public class FinishTestItemRQ extends FinishExecutionRQ {
   @JsonProperty(value = "retryOf")
   private String retryOf;
 
-  public Boolean isRetry() {
-    return retry;
-  }
-
-  public void setRetry(Boolean retry) {
-    this.retry = retry;
-  }
-
-  public Issue getIssue() {
-    return issue;
-  }
-
-  public void setIssue(Issue issue) {
-    this.issue = issue;
-  }
-
-  public String getLaunchUuid() {
-    return launchUuid;
-  }
-
-  public void setLaunchUuid(String launchUuid) {
-    this.launchUuid = launchUuid;
-  }
-
-  public String getTestCaseId() {
-    return testCaseId;
-  }
-
-  public void setTestCaseId(String testCaseId) {
-    this.testCaseId = testCaseId;
-  }
-
-  public String getRetryOf() {
-    return retryOf;
-  }
-
-  public void setRetryOf(String retryOf) {
-    this.retryOf = retryOf;
-  }
-
-  @Override
-  public String toString() {
-    return "FinishTestItemRQ{" + "issue=" + issue
-        + ", retry=" + retry
-        + ", launchUuid='" + launchUuid + '\''
-        + ", testCaseId='" + testCaseId + '\''
-        + ", retryOf='" + retryOf + '\''
-        + '}';
-  }
 }

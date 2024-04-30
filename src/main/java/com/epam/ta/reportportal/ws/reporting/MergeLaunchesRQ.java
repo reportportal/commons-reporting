@@ -16,7 +16,6 @@
 
 package com.epam.ta.reportportal.ws.reporting;
 
-
 import static com.epam.ta.reportportal.ws.reporting.ValidationConstraints.MAX_PARAMETERS_LENGTH;
 
 import com.epam.ta.reportportal.ws.annotations.NotBlankWithSize;
@@ -66,7 +65,7 @@ public class MergeLaunchesRQ {
 
   @NotEmpty
   @JsonProperty(value = "launches", required = true)
-  @Schema(requiredMode = RequiredMode.REQUIRED)
+  @Schema(description = "A set of IDs of the launches to be merged.", requiredMode = RequiredMode.REQUIRED)
   private Set<Long> launches;
 
   @JsonProperty(value = "endTime")

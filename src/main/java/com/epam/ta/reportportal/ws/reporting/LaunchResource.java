@@ -107,4 +107,7 @@ public class LaunchResource extends OwnedResource {
   @JsonProperty(value = "metadata")
   private Map<String, Object> metadata;
 
+  @JsonProperty(value = "retentionPolicy")
+  private RetentionPolicy retentionPolicy;
+
 }

@@ -25,7 +25,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Deserialization class for parsing incoming dates of different formats.
@@ -39,6 +40,9 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
 
   private static final DateTimeFormatter LOCAL_DATE_TIME_MS_FORMAT =
       DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS").withZone(ZoneId.of("UTC"));
+
+  private static final DateTimeFormatter LOCAL_DATE_TIME_MS_FORMAT_DATE =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXX").withZone(ZoneId.of("UTC"));
 
   @Override
   public Instant deserialize(JsonParser parser, DeserializationContext context) throws IOException {
@@ -59,16 +63,23 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
     }
 
     String strDate = parser.getText();
-    DateTimeFormatter formatter =
-        new DateTimeFormatterBuilder().appendOptional(DateTimeFormatter.RFC_1123_DATE_TIME)
-            .appendOptional(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-            .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
-            .appendOptional(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            .appendOptional(TIMESTAMP_FORMAT)
-            .appendOptional(LOCAL_DATE_TIME_MS_FORMAT)
-            .toFormatter();
 
-    return LocalDateTime.from(formatter.parse(strDate)).toInstant(ZoneOffset.UTC);
+    List<DateTimeFormatter> formatters = new ArrayList<>();
+    formatters.add(DateTimeFormatter.RFC_1123_DATE_TIME);
+    formatters.add(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    formatters.add(DateTimeFormatter.ISO_DATE_TIME);
+    formatters.add(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+    formatters.add(TIMESTAMP_FORMAT);
+    formatters.add(LOCAL_DATE_TIME_MS_FORMAT);
+    formatters.add(LOCAL_DATE_TIME_MS_FORMAT_DATE);
 
+    for (DateTimeFormatter formatter : formatters) {
+      try {
+        return LocalDateTime.from(formatter.parse(strDate)).toInstant(ZoneOffset.UTC);
+      } catch (Exception e) {
+        //ignore
+      }
+    }
+    throw new RuntimeException();
   }
 }

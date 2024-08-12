@@ -24,6 +24,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,9 +76,12 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
 
     for (DateTimeFormatter formatter : formatters) {
       try {
-        return LocalDateTime.from(formatter.parse(strDate)).toInstant(ZoneOffset.UTC);
+        return ZonedDateTime.from(formatter.parse(strDate)).toInstant();
       } catch (Exception e) {
-        //ignore
+        try {
+          return LocalDateTime.from(formatter.parse(strDate)).toInstant(ZoneOffset.UTC);
+        } catch (Exception ex) {
+        }
       }
     }
     throw new RuntimeException();

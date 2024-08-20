@@ -24,8 +24,12 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Deserialization class for parsing incoming dates of different formats.
@@ -38,7 +42,20 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
       DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.of("UTC"));
 
   private static final DateTimeFormatter LOCAL_DATE_TIME_MS_FORMAT =
-      DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS").withZone(ZoneId.of("UTC"));
+      DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+
+  private static final DateTimeFormatter LOCAL_DATE_TIME_MS_FORMAT_DATE =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXX");
+
+  private static final List<DateTimeFormatter> PREDEFINED_FORMATS = Arrays.asList(
+      DateTimeFormatter.RFC_1123_DATE_TIME,
+      DateTimeFormatter.ISO_OFFSET_DATE_TIME,
+      DateTimeFormatter.ISO_DATE_TIME,
+      DateTimeFormatter.ISO_LOCAL_DATE_TIME,
+      TIMESTAMP_FORMAT,
+      LOCAL_DATE_TIME_MS_FORMAT,
+      LOCAL_DATE_TIME_MS_FORMAT_DATE
+  );
 
   @Override
   public Instant deserialize(JsonParser parser, DeserializationContext context) throws IOException {
@@ -47,7 +64,6 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
       if (parser.getText() == null) {
         return Instant.ofEpochMilli(longDate);
       }
-      // ignore
     } catch (Exception e) {
       // ignore
     }
@@ -59,16 +75,17 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
     }
 
     String strDate = parser.getText();
-    DateTimeFormatter formatter =
-        new DateTimeFormatterBuilder().appendOptional(DateTimeFormatter.RFC_1123_DATE_TIME)
-            .appendOptional(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-            .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
-            .appendOptional(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            .appendOptional(TIMESTAMP_FORMAT)
-            .appendOptional(LOCAL_DATE_TIME_MS_FORMAT)
-            .toFormatter();
 
-    return LocalDateTime.from(formatter.parse(strDate)).toInstant(ZoneOffset.UTC);
-
+    for (DateTimeFormatter formatter : PREDEFINED_FORMATS) {
+      try {
+        TemporalAccessor parsedDate = formatter.parseBest(strDate, ZonedDateTime::from,
+            LocalDateTime::from);
+        return parsedDate instanceof ZonedDateTime ? ((ZonedDateTime) parsedDate).toInstant()
+            : ((LocalDateTime) parsedDate).toInstant(ZoneOffset.UTC);
+      } catch (DateTimeParseException e) {
+        // Exception means the text could not be parsed with this formatter, continue with next formatter
+      }
+    }
+    throw new IOException("Unable to parse date: " + strDate);
   }
 }

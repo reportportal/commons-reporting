@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -44,10 +45,12 @@ class MultiFormatDateDeserializerTest {
   @ParameterizedTest
   @ValueSource(strings = {
       "2024-03-01T20:24:09.930987Z",
-      "2024-03-01T20:24:09.930987654Z",
+      "2024-03-01T20:24:09.930987654",
       "2024-03-01T20:24:09.930Z",
       "2024-03-01T20:24:09.930",
       "2024-03-01T20:24:09.930+00:00",
+      "2024-03-01T19:24:09.930-01:00",
+      "2024-03-01T23:24:09.930+0300",
       "1709324649930"
   })
   void deserializeDates(String strDate) throws IOException {

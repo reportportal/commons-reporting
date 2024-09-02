@@ -2,14 +2,19 @@ name: Release
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version'
-        required: true
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '.github/**'
+      - README.md
+      - CHANGELOG.md
+      - gradle.properties
 
 env:
   GH_USER_NAME: github.actor
-  RELEASE_VERSION: ${{ github.event.inputs.version }}
+  SCRIPTS_VERSION: 5.12.0
+  RELEASE_VERSION: 5.12.0
 
 jobs:
   release:
@@ -24,30 +29,20 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
 
-      - name: Update version
-        run: mvn versions:set -DnewVersion=${{env.RELEASE_VERSION}} -DgenerateBackupPoms=false
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-      - name: Set up GPG
-        run: |
-          echo "$GPG_PRIVATE_KEY" > private.asc
-          gpg --import --batch private.asc
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-
-      - name: Release with Maven
-        run: |
-          mvn -B -Pdeploy -Dgpg.passphrase=${GPG_PASSPHRASE} -DcreateChecksum=true clean deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-
-      - name: Create Release
-        id: createRelease
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup git credentials
+        uses: oleksiyrudenko/gha-git-credentials@v2
         with:
-          tag_name: ${{env.RELEASE_VERSION}}
-          release_name: Release ${{env.RELEASE_VERSION}}
-          draft: false
-          prerelease: false
+          name: 'reportportal.io'
+          email: 'support@reportportal.io'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release with Gradle
+        id: release
+        run: |
+          ./gradlew release -PreleaseMode -Pscripts.version=${{env.SCRIPTS_VERSION}} \
+          -PgithubUserName=${{secrets.GH_USER_ORG}} -PgithubToken=${{secrets.GH_TOKEN_ORG}} \
+          -PgpgPassphrase=${{secrets.GPG_PASSPHRASE}} -PgpgPrivateKey="${{secrets.GPG_PRIVATE_KEY}}" \
+          -Prelease.releaseVersion=${{env.RELEASE_VERSION}}

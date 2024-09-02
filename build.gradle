@@ -23,7 +23,7 @@ plugins {
 def scriptsUrl = 'https://raw.githubusercontent.com/reportportal/gradle-scripts/' +
         (project.hasProperty("releaseMode") ? getProperty('scripts.version') : 'master')
 
-project.ext.publishRepo = "https://maven.pkg.github.com/reportportal/commons-model"
+project.ext.publishRepo = "https://maven.pkg.github.com/reportportal/commons-reporting"
 
 apply from: scriptsUrl + '/release-commons.gradle'
 apply from: scriptsUrl + '/signing.gradle'

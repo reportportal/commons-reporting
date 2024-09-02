@@ -43,6 +43,6 @@ jobs:
         id: release
         run: |
           ./gradlew release -PreleaseMode -Pscripts.version=${{env.SCRIPTS_VERSION}} \
-          -PgithubUserName=${{env.GH_USER_NAME}} -PgithubToken=${{secrets.GH_TOKEN_TEST}} \
+          -PgithubUserName=${{env.GH_USER_NAME}} -PgithubToken=${{secrets.GH_TOKEN}} \
           -PgpgPassphrase=${{secrets.GPG_PASSPHRASE}} -PgpgPrivateKey="${{secrets.GPG_PRIVATE_KEY}}" \
           -Prelease.releaseVersion=${{env.RELEASE_VERSION}}

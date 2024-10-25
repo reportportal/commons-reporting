@@ -74,9 +74,10 @@ public class LaunchResource extends OwnedResource {
   @JsonDeserialize(using = MultiFormatDateDeserializer.class)
   private Instant endTime;
 
-  @JsonProperty(value = "lastModified")
-  @JsonDeserialize(using = MultiFormatDateDeserializer.class)
-  private Instant lastModified;
+  // Temp removed for back compatibility with old agents
+//  @JsonProperty(value = "lastModified")
+//  @JsonDeserialize(using = MultiFormatDateDeserializer.class)
+//  private Instant lastModified;
 
   @NotNull
   @JsonProperty(value = "status", required = true)

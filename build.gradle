@@ -72,6 +72,6 @@ test {
     useJUnitPlatform()
 }
 
-tasks.named('preTagCommit') {
-    enabled = false
-}
+tasks.preTagCommit.enabled = false
+tasks.updateVersion.enabled = false
+tasks.commitNewVersion.enabled = false

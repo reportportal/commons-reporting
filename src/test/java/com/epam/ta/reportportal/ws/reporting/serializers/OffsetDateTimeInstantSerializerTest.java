@@ -9,13 +9,12 @@ import org.junit.jupiter.api.Test;
 
 public class OffsetDateTimeInstantSerializerTest {
 
-  private static final Instant INSTANT_TIME = Instant.parse("2024-03-01T20:24:09.930930+00:00");
-  private static final String EXPECTED_PARSED_TIME = "2024-03-01T20:24:09.930930+0000";
+  private static final String EXPECTED_PARSED_TIME = "2024-11-01T08:39:14.125000+0000";
 
   @Test
   void serializeTimeInCompatibleFormat() throws IOException {
     LaunchResource launchResource = new LaunchResource();
-    launchResource.setStartTime(INSTANT_TIME);
+    launchResource.setStartTime(Instant.ofEpochMilli(1730450354125L));
     ObjectMapper objectMapper = new ObjectMapper();
     String s = objectMapper.writeValueAsString(launchResource);
     Assertions.assertTrue(s.contains(EXPECTED_PARSED_TIME));

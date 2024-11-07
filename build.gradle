@@ -17,7 +17,8 @@ import org.owasp.dependencycheck.reporting.ReportGenerator
  */
 plugins {
     id 'java'
-    id "org.owasp.dependencycheck" version "5.3.1"
+    id 'java-library'
+    id 'org.owasp.dependencycheck' version '10.0.4'
 }
 
 def scriptsUrl = 'https://raw.githubusercontent.com/reportportal/gradle-scripts/' +
@@ -27,34 +28,32 @@ project.ext.publishRepo = "https://maven.pkg.github.com/reportportal/commons-mod
 
 apply from: scriptsUrl + '/release-commons.gradle'
 apply from: scriptsUrl + '/signing.gradle'
-apply from: scriptsUrl + '/build-quality.gradle'
+//apply from: scriptsUrl + '/build-quality.gradle'
 
 repositories {
     mavenCentral { url "https://repo1.maven.org/maven2" }
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
-wrapper {
-    gradleVersion = '6.0'
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 dependencies {
     dependencies {
-        implementation "org.springdoc:springdoc-openapi-data-rest:${sprindocAnnotationsVersion}"
-        implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
-        implementation "javax.validation:validation-api:${validationApiVersion}"
-        implementation "org.apache.commons:commons-lang3:${commonsLangVersion}"
+        api "org.springdoc:springdoc-openapi-starter-common:${springDocVersion}"
+        api "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+        api "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
+        api "org.apache.commons:commons-lang3:${commonsLangVersion}"
 
-        testImplementation "junit:junit:${junitVersion}"
-        testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
-        testImplementation "org.junit.jupiter:junit-jupiter-params:${jupiterVersion}"
-        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
         testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiter}"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+        testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+        testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
         testImplementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
-        testImplementation "javax.el:javax.el-api:${elApiVersion}"
-        testImplementation "org.glassfish:javax.el:${elApiVersion}"
+        testImplementation "org.hamcrest:hamcrest:2.2"
+        testImplementation "jakarta.el:jakarta.el-api:6.0.1"
+        testImplementation "org.glassfish:jakarta.el:4.0.2"
 
         // add lombok support
         compileOnly "org.projectlombok:lombok:${lombokVersion}"

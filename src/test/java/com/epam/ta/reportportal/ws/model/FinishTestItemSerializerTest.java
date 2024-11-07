@@ -16,25 +16,24 @@
 
 package com.epam.ta.reportportal.ws.model;
 
-import com.epam.ta.reportportal.ws.reporting.ItemAttributesRQ;
-import com.epam.ta.reportportal.ws.reporting.Issue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.epam.ta.reportportal.ws.reporting.FinishTestItemRQ;
+import com.epam.ta.reportportal.ws.reporting.Issue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Pavel Bortnik
  */
 public class FinishTestItemSerializerTest {
 
-  private ObjectMapper om = getObjectMapper();
+  private final ObjectMapper om = getObjectMapper();
 
   private static final String FINISH_TEST_ITEM_RQ =
       "{\"attributes\":[],\"status\":\"PASSED\",\"description\":\"description\","
@@ -43,14 +42,14 @@ public class FinishTestItemSerializerTest {
   @Test
   public void testSerializer() throws JsonProcessingException {
     String json = om.writeValueAsString(getFinishTestItem());
-    Assert.assertEquals("Incorrect serialization result", FINISH_TEST_ITEM_RQ, json);
+    assertEquals(FINISH_TEST_ITEM_RQ, json, "Incorrect serialization result");
   }
 
   @Test
   public void testDeserializer() throws IOException {
     FinishTestItemRQ rq = om.readValue(FINISH_TEST_ITEM_RQ.getBytes(StandardCharsets.UTF_8),
         FinishTestItemRQ.class);
-    Assert.assertEquals("Incorrect deserialization result", rq.getStatus(), "PASSED");
+    assertEquals(rq.getStatus(), "PASSED", "Incorrect deserialization result");
   }
 
   private FinishTestItemRQ getFinishTestItem() {

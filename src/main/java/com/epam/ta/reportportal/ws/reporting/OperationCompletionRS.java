@@ -19,33 +19,25 @@ package com.epam.ta.reportportal.ws.reporting;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Common response for operation that return just message about completion
  *
  * @author Henadzi_Vrubleuski
  */
+@Setter
+@Getter
 @JsonInclude(Include.NON_NULL)
+@AllArgsConstructor
+@NoArgsConstructor
 public class OperationCompletionRS {
 
   @JsonProperty("message")
   private String resultMessage;
-
-  public OperationCompletionRS() {
-
-  }
-
-  public OperationCompletionRS(String message) {
-    this.resultMessage = message;
-  }
-
-  public String getResultMessage() {
-    return resultMessage;
-  }
-
-  public void setResultMessage(String resultMessage) {
-    this.resultMessage = resultMessage;
-  }
 
   @Override
   public String toString() {

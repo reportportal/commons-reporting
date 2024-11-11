@@ -16,11 +16,13 @@
 
 package com.epam.ta.reportportal.ws.reporting;
 
+import com.epam.ta.reportportal.ws.reporting.databind.OffsetDateTimeInstantSerializer;
 import com.epam.ta.reportportal.ws.reporting.databind.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -68,14 +70,17 @@ public class LaunchResource extends OwnedResource {
   @NotNull
   @JsonProperty(value = "startTime", required = true)
   @JsonDeserialize(using = MultiFormatDateDeserializer.class)
+  @JsonSerialize(using = OffsetDateTimeInstantSerializer.class)
   private Instant startTime;
 
   @JsonProperty(value = "endTime")
   @JsonDeserialize(using = MultiFormatDateDeserializer.class)
+  @JsonSerialize(using = OffsetDateTimeInstantSerializer.class)
   private Instant endTime;
 
   @JsonProperty(value = "lastModified")
   @JsonDeserialize(using = MultiFormatDateDeserializer.class)
+  @JsonSerialize(using = OffsetDateTimeInstantSerializer.class)
   private Instant lastModified;
 
   @NotNull

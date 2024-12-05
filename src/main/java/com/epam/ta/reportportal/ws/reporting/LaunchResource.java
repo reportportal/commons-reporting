@@ -16,24 +16,23 @@
 
 package com.epam.ta.reportportal.ws.reporting;
 
-import com.epam.ta.reportportal.ws.reporting.databind.OffsetDateTimeInstantSerializer;
 import com.epam.ta.reportportal.ws.reporting.databind.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import java.time.Instant;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * JSON Representation of Report Portal's Launch domain object
@@ -70,17 +69,14 @@ public class LaunchResource extends OwnedResource {
   @NotNull
   @JsonProperty(value = "startTime", required = true)
   @JsonDeserialize(using = MultiFormatDateDeserializer.class)
-  @JsonSerialize(using = OffsetDateTimeInstantSerializer.class)
   private Instant startTime;
 
   @JsonProperty(value = "endTime")
   @JsonDeserialize(using = MultiFormatDateDeserializer.class)
-  @JsonSerialize(using = OffsetDateTimeInstantSerializer.class)
   private Instant endTime;
 
   @JsonProperty(value = "lastModified")
   @JsonDeserialize(using = MultiFormatDateDeserializer.class)
-  @JsonSerialize(using = OffsetDateTimeInstantSerializer.class)
   private Instant lastModified;
 
   @NotNull

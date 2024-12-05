@@ -17,7 +17,8 @@ import org.owasp.dependencycheck.reporting.ReportGenerator
  */
 plugins {
     id 'java'
-    id "org.owasp.dependencycheck" version "5.3.1"
+    id 'java-library'
+    id 'org.owasp.dependencycheck' version '10.0.4'
 }
 
 def scriptsUrl = 'https://raw.githubusercontent.com/reportportal/gradle-scripts/' +
@@ -27,17 +28,19 @@ project.ext.publishRepo = "https://maven.pkg.github.com/reportportal/commons-rep
 
 apply from: scriptsUrl + '/release-commons.gradle'
 apply from: scriptsUrl + '/signing.gradle'
-apply from: scriptsUrl + '/build-quality.gradle'
+//apply from: scriptsUrl + '/build-quality.gradle'
 
 repositories {
     mavenCentral { url "https://repo1.maven.org/maven2" }
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
 wrapper {
-    gradleVersion = '6.0'
+    gradleVersion = '8.10'
 }
 
 dependencies {

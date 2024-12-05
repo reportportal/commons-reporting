@@ -16,19 +16,18 @@
 
 package com.epam.ta.reportportal.ws.reporting;
 
-import com.epam.ta.reportportal.ws.reporting.databind.OffsetDateTimeInstantSerializer;
 import com.epam.ta.reportportal.ws.reporting.databind.MultiFormatDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import java.time.Instant;
-import java.util.List;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.time.Instant;
+import java.util.List;
+import java.util.Set;
 
 /**
  * JSON Representation of Report Portal domain object
@@ -67,12 +66,10 @@ public class TestItemResource {
 
   @JsonProperty(value = "startTime")
   @JsonDeserialize(using = MultiFormatDateDeserializer.class)
-  @JsonSerialize(using = OffsetDateTimeInstantSerializer.class)
   private Instant startTime;
 
   @JsonProperty(value = "endTime")
   @JsonDeserialize(using = MultiFormatDateDeserializer.class)
-  @JsonSerialize(using = OffsetDateTimeInstantSerializer.class)
   private Instant endTime;
 
   @JsonProperty(value = "status")

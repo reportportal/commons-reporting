@@ -41,6 +41,10 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
   private static final DateTimeFormatter TIMESTAMP_FORMAT =
       DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.of("UTC"));
 
+  private static final DateTimeFormatter ZONE_OFFSET_FORMAT = DateTimeFormatter
+      .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ")
+      .withZone(ZoneOffset.UTC);
+
   private static final DateTimeFormatter LOCAL_DATE_TIME_MS_FORMAT =
       DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
@@ -54,7 +58,8 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
       DateTimeFormatter.ISO_LOCAL_DATE_TIME,
       TIMESTAMP_FORMAT,
       LOCAL_DATE_TIME_MS_FORMAT,
-      LOCAL_DATE_TIME_MS_FORMAT_DATE
+      LOCAL_DATE_TIME_MS_FORMAT_DATE,
+      ZONE_OFFSET_FORMAT
   );
 
   @Override

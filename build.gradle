@@ -40,7 +40,7 @@ java {
 }
 
 wrapper {
-    gradleVersion = '8.11ю1'
+    gradleVersion = '8.11.1'
 }
 
 dependencies {
@@ -49,6 +49,8 @@ dependencies {
         api "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
         api "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
         api "org.apache.commons:commons-lang3:${commonsLangVersion}"
+        api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
+
 
         testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiter}"
         testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"

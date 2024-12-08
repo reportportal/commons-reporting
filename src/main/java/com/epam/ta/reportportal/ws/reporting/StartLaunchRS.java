@@ -17,10 +17,14 @@
 package com.epam.ta.reportportal.ws.reporting;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author <a href="mailto:ihar_kahadouski@epam.com">Ihar Kahadouski</a>
  */
+@Setter
+@Getter
 public class StartLaunchRS extends EntryCreatedAsyncRS {
 
 	@JsonProperty("number")
@@ -31,14 +35,6 @@ public class StartLaunchRS extends EntryCreatedAsyncRS {
 
 	public StartLaunchRS(String id, Long number) {
 		super(id);
-		this.number = number;
-	}
-
-	public Long getNumber() {
-		return number;
-	}
-
-	public void setNumber(Long number) {
 		this.number = number;
 	}
 

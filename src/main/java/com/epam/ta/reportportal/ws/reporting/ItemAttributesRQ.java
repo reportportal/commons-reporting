@@ -18,17 +18,21 @@ package com.epam.ta.reportportal.ws.reporting;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author <a href="mailto:pavel_bortnik@epam.com">Pavel Bortnik</a>
  */
+@Setter
+@Getter
+@NoArgsConstructor
 public class ItemAttributesRQ extends ItemAttributeResource implements Serializable {
 
 	@Schema(example = "false")
 	private boolean system;
-
-	public ItemAttributesRQ() {
-	}
 
 	public ItemAttributesRQ(String value) {
 		super(null, value);
@@ -43,15 +47,7 @@ public class ItemAttributesRQ extends ItemAttributeResource implements Serializa
 		this.system = system;
 	}
 
-	public boolean isSystem() {
-		return system;
-	}
-
-	public void setSystem(boolean system) {
-		this.system = system;
-	}
-
-	@Override
+  @Override
 	public String toString() {
 		return "ItemAttributesRQ{" + "system=" + system + "} " + super.toString();
 	}

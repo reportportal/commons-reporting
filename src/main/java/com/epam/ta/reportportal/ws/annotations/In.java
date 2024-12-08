@@ -16,7 +16,7 @@
 
 package com.epam.ta.reportportal.ws.annotations;
 
-import javax.validation.Constraint;
+import jakarta.validation.Constraint;
 import java.lang.annotation.*;
 
 /**

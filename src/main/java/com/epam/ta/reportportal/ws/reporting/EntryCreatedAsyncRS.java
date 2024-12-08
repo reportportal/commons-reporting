@@ -17,10 +17,14 @@
 package com.epam.ta.reportportal.ws.reporting;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Konstantin Antipin
  */
+@Setter
+@Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EntryCreatedAsyncRS {
 
@@ -30,14 +34,6 @@ public class EntryCreatedAsyncRS {
   }
 
   public EntryCreatedAsyncRS(String id) {
-    this.id = id;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
     this.id = id;
   }
 

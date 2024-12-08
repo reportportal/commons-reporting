@@ -40,10 +40,14 @@ import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @JsonInclude(Include.NON_NULL)
 public class StartTestItemRQ extends StartRQ {
 
@@ -91,79 +95,7 @@ public class StartTestItemRQ extends StartRQ {
 		return name;
 	}
 
-	public String getCodeRef() {
-		return codeRef;
-	}
-
-	public void setCodeRef(String codeRef) {
-		this.codeRef = codeRef;
-	}
-
-	public Boolean isRetry() {
-		return retry;
-	}
-
-	public void setRetry(Boolean retry) {
-		this.retry = retry;
-	}
-
-	public boolean isHasStats() {
-		return hasStats;
-	}
-
-	public void setHasStats(boolean hasStats) {
-		this.hasStats = hasStats;
-	}
-
-	public String getRetryOf() {
-		return retryOf;
-	}
-
-	public void setRetryOf(String retryOf) {
-		this.retryOf = retryOf;
-	}
-
-	public String getLaunchUuid() {
-		return launchUuid;
-	}
-
-	public void setLaunchUuid(String launchUuid) {
-		this.launchUuid = launchUuid;
-	}
-
-	public List<ParameterResource> getParameters() {
-		return parameters;
-	}
-
-	public void setParameters(List<ParameterResource> parameters) {
-		this.parameters = parameters;
-	}
-
-	public String getUniqueId() {
-		return uniqueId;
-	}
-
-	public void setUniqueId(String uniqueId) {
-		this.uniqueId = uniqueId;
-	}
-
-	public String getTestCaseId() {
-		return testCaseId;
-	}
-
-	public void setTestCaseId(String testCaseId) {
-		this.testCaseId = testCaseId;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	private static class UpperCaseTypeDeserializer extends JsonDeserializer<String> {
+  private static class UpperCaseTypeDeserializer extends JsonDeserializer<String> {
 
 		@Override
 		public String deserialize(JsonParser parser, DeserializationContext context) throws IOException {

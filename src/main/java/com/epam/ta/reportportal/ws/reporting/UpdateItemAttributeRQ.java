@@ -16,11 +16,15 @@
 
 package com.epam.ta.reportportal.ws.reporting;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author <a href="mailto:ihar_kahadouski@epam.com">Ihar Kahadouski</a>
  */
+@Setter
+@Getter
 public class UpdateItemAttributeRQ {
 
   @Valid
@@ -31,27 +35,4 @@ public class UpdateItemAttributeRQ {
 
   private BulkInfoUpdateRQ.Action action;
 
-  public ItemAttributeResource getFrom() {
-    return from;
-  }
-
-  public void setFrom(ItemAttributeResource from) {
-    this.from = from;
-  }
-
-  public ItemAttributeResource getTo() {
-    return to;
-  }
-
-  public void setTo(ItemAttributeResource to) {
-    this.to = to;
-  }
-
-  public BulkInfoUpdateRQ.Action getAction() {
-    return action;
-  }
-
-  public void setAction(BulkInfoUpdateRQ.Action action) {
-    this.action = action;
-  }
 }

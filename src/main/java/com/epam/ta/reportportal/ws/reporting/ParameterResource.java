@@ -17,13 +17,17 @@
 package com.epam.ta.reportportal.ws.reporting;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Test item parameters representation
  *
  * @author Pavel_Bortnik
  */
+@Setter
+@Getter
 public class ParameterResource {
 
   @NotNull
@@ -32,22 +36,6 @@ public class ParameterResource {
 
   @JsonProperty(value = "value")
   private String value;
-
-  public String getKey() {
-    return key;
-  }
-
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
-  }
 
   @Override
   public boolean equals(Object o) {

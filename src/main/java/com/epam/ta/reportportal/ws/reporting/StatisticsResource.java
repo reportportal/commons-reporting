@@ -20,7 +20,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @JsonInclude(Include.NON_NULL)
 public class StatisticsResource {
 
@@ -29,22 +33,6 @@ public class StatisticsResource {
 
   @JsonProperty(value = "defects")
   private Map<String, Map<String, Integer>> defects;
-
-  public Map<String, Integer> getExecutions() {
-    return executions;
-  }
-
-  public void setExecutions(Map<String, Integer> executions) {
-    this.executions = executions;
-  }
-
-  public Map<String, Map<String, Integer>> getDefects() {
-    return defects;
-  }
-
-  public void setDefects(Map<String, Map<String, Integer>> defects) {
-    this.defects = defects;
-  }
 
   @Override
   public String toString() {

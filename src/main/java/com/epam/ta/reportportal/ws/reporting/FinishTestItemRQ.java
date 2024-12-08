@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

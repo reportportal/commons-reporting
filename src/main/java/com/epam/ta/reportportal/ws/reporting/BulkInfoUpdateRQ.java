@@ -17,13 +17,17 @@
 package com.epam.ta.reportportal.ws.reporting;
 
 import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author <a href="mailto:ihar_kahadouski@epam.com">Ihar Kahadouski</a>
  */
+@Setter
+@Getter
 public class BulkInfoUpdateRQ {
 
 	@NotNull
@@ -35,56 +39,19 @@ public class BulkInfoUpdateRQ {
 	@Valid
 	private List<UpdateItemAttributeRQ> attributes;
 
-	public List<Long> getIds() {
-		return ids;
-	}
-
-	public void setIds(List<Long> ids) {
-		this.ids = ids;
-	}
-
-	public Description getDescription() {
-		return description;
-	}
-
-	public void setDescription(Description description) {
-		this.description = description;
-	}
-
-	public List<UpdateItemAttributeRQ> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(List<UpdateItemAttributeRQ> attributes) {
-		this.attributes = attributes;
-	}
-
-	public enum Action {
+  public enum Action {
 		DELETE,
 		UPDATE,
 		CREATE
 	}
 
-	public static class Description {
+	@Setter
+  @Getter
+  public static class Description {
 
 		String comment;
 
 		Action action;
 
-		public String getComment() {
-			return comment;
-		}
-
-		public void setComment(String comment) {
-			this.comment = comment;
-		}
-
-		public Action getAction() {
-			return action;
-		}
-
-		public void setAction(Action action) {
-			this.action = action;
-		}
-	}
+  }
 }

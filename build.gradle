@@ -45,11 +45,11 @@ wrapper {
 
 dependencies {
     dependencies {
-        api "org.springdoc:springdoc-openapi-starter-common:${springDocVersion}"
-        api "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+        implementation "io.swagger.core.v3:swagger-annotations-jakarta:2.2.25"
+        implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
         api "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
         api "org.apache.commons:commons-lang3:${commonsLangVersion}"
-        api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
+        implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
 
         testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiter}"
         testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"

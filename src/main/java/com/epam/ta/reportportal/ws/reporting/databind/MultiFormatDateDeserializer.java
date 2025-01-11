@@ -27,6 +27,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 import java.util.List;
@@ -67,14 +68,14 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
     try {
       long longDate = parser.getLongValue();
       if (parser.getText() == null) {
-        return Instant.ofEpochMilli(longDate);
+        return getTruncatedToMicros(longDate);
       }
     } catch (Exception e) {
       // ignore
     }
     try {
-      long millis = Long.parseLong(parser.getText());
-      return Instant.ofEpochMilli(millis);
+      long longDate = Long.parseLong(parser.getText());
+      return getTruncatedToMicros(longDate);
     } catch (Exception e) {
       // ignore
     }
@@ -85,12 +86,18 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
       try {
         TemporalAccessor parsedDate = formatter.parseBest(strDate, ZonedDateTime::from,
             LocalDateTime::from);
-        return parsedDate instanceof ZonedDateTime ? ((ZonedDateTime) parsedDate).toInstant()
-            : ((LocalDateTime) parsedDate).toInstant(ZoneOffset.UTC);
+        Instant instant =
+            parsedDate instanceof ZonedDateTime ? ((ZonedDateTime) parsedDate).toInstant()
+                : ((LocalDateTime) parsedDate).toInstant(ZoneOffset.UTC);
+        return instant.truncatedTo(ChronoUnit.MICROS);
       } catch (DateTimeParseException e) {
         // Exception means the text could not be parsed with this formatter, continue with next formatter
       }
     }
     throw new IOException("Unable to parse date: " + strDate);
+  }
+
+  private Instant getTruncatedToMicros(long longDate) {
+    return Instant.ofEpochMilli(longDate).truncatedTo(ChronoUnit.MICROS);
   }
 }

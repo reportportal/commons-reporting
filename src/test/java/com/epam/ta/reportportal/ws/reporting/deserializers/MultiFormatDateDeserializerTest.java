@@ -37,7 +37,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class MultiFormatDateDeserializerTest {
 
-  private static final Instant expectedTime = Instant.parse("2024-03-01T20:24:09.930Z");
+  private static final Instant expectedTime = Instant.parse("2024-03-01T20:24:09.930987Z");
+  private static final Instant expectedTimeMillis = Instant.parse("2024-03-01T20:24:09.930Z");
 
   @Mock
   JsonParser jsonParser;
@@ -46,21 +47,33 @@ class MultiFormatDateDeserializerTest {
   @ValueSource(strings = {
       "2024-03-01T20:24:09.930987Z",
       "2024-03-01T20:24:09.930987654",
-      "2024-03-01T20:24:09.930Z",
-      "2024-03-01T20:24:09.930",
-      "2024-03-01T20:24:09.930+00:00",
-      "2024-03-01T19:24:09.930-01:00",
-      "2024-03-01T23:24:09.930+0300",
-      "2024-03-01T20:24:09.930000+0000",
-      "1709324649930"
+      "2024-03-01T20:24:09.930987+0000",
+      "2024-03-01T20:24:09.930987999"
   })
-  void deserializeDates(String strDate) throws IOException {
+  void deserializeDatesMicros(String strDate) throws IOException {
     MultiFormatDateDeserializer a = new MultiFormatDateDeserializer();
     when(jsonParser.getText()).thenReturn(strDate);
     Instant date = a.deserialize(jsonParser, mock(DeserializationContext.class));
 
-    Assertions.assertEquals(expectedTime, date.truncatedTo(ChronoUnit.MILLIS));
+    Assertions.assertEquals(expectedTime, date.truncatedTo(ChronoUnit.MICROS));
   }
+
+  @ParameterizedTest
+  @ValueSource(strings = {
+      "2024-03-01T20:24:09.930Z",
+      "2024-03-01T20:24:09.930",
+      "2024-03-01T20:24:09.930+00:00",
+      "2024-03-01T19:24:09.930-01:00",
+      "1709324649930"
+  })
+  void deserializeDatesMillis(String strDate) throws IOException {
+    MultiFormatDateDeserializer a = new MultiFormatDateDeserializer();
+    when(jsonParser.getText()).thenReturn(strDate);
+    Instant date = a.deserialize(jsonParser, mock(DeserializationContext.class));
+
+    Assertions.assertEquals(expectedTimeMillis, date.truncatedTo(ChronoUnit.MICROS));
+  }
+
 
   @ParameterizedTest
   @ValueSource(longs = {
@@ -71,6 +84,6 @@ class MultiFormatDateDeserializerTest {
     when(jsonParser.getLongValue()).thenReturn(longDate);
     Instant date = a.deserialize(jsonParser, mock(DeserializationContext.class));
 
-    Assertions.assertEquals(expectedTime, date.truncatedTo(ChronoUnit.MILLIS));
+    Assertions.assertEquals(expectedTimeMillis, date.truncatedTo(ChronoUnit.MICROS));
   }
 }

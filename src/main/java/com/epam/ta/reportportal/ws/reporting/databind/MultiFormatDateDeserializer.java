@@ -68,14 +68,14 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
     try {
       long longDate = parser.getLongValue();
       if (parser.getText() == null) {
-        return getTruncatedMillis(longDate);
+        return getTruncatedToMicros(longDate);
       }
     } catch (Exception e) {
       // ignore
     }
     try {
-      long millis = Long.parseLong(parser.getText());
-      return getTruncatedMillis(millis);
+      long longDate = Long.parseLong(parser.getText());
+      return getTruncatedToMicros(longDate);
     } catch (Exception e) {
       // ignore
     }
@@ -97,7 +97,7 @@ public class MultiFormatDateDeserializer extends JsonDeserializer<Instant> {
     throw new IOException("Unable to parse date: " + strDate);
   }
 
-  private Instant getTruncatedMillis(long value) {
-    return Instant.ofEpochMilli(value).truncatedTo(ChronoUnit.MICROS);
+  private Instant getTruncatedToMicros(long longDate) {
+    return Instant.ofEpochMilli(longDate).truncatedTo(ChronoUnit.MICROS);
   }
 }

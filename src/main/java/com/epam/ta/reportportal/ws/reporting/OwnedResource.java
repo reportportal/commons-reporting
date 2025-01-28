@@ -22,13 +22,17 @@ import static com.epam.ta.reportportal.ws.reporting.ValidationConstraints.MIN_DE
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Base entity for sharable resources. This resource should contains owner in response.
  *
  * @author Aliaksei_Makayed
  */
+@Setter
+@Getter
 @JsonInclude(Include.NON_NULL)
 public class OwnedResource {
 
@@ -37,22 +41,6 @@ public class OwnedResource {
 
   @Size(min = MIN_DESCRIPTION, max = MAX_ENTITY_DESCRIPTION)
   private String description;
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public String getOwner() {
-    return owner;
-  }
-
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
 
   @Override
   public String toString() {

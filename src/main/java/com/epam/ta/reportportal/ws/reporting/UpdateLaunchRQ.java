@@ -24,14 +24,18 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Set;
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Domain object for updating launch object.
  *
  * @author Aliaksei_Makayed
  */
+@Setter
+@Getter
 @JsonInclude(Include.NON_NULL)
 public class UpdateLaunchRQ {
 
@@ -46,30 +50,6 @@ public class UpdateLaunchRQ {
   @Valid
   @JsonProperty("attributes")
   private Set<ItemAttributeResource> attributes;
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public Set<ItemAttributeResource> getAttributes() {
-    return attributes;
-  }
-
-  public void setAttributes(Set<ItemAttributeResource> attributes) {
-    this.attributes = attributes;
-  }
-
-  public Mode getMode() {
-    return mode;
-  }
-
-  public void setMode(Mode mode) {
-    this.mode = mode;
-  }
 
   @Override
   public String toString() {

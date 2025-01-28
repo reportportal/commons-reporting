@@ -21,12 +21,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Response with results of completion save batch operation.
  *
  * @author Aliaksei_Makayed
  */
+@Setter
+@Getter
 @JsonInclude(Include.NON_NULL)
 public class BatchSaveOperatingRS {
 
@@ -37,16 +41,8 @@ public class BatchSaveOperatingRS {
     responses = new ArrayList<>();
   }
 
-  public List<BatchElementCreatedRS> getResponses() {
-    return responses;
-  }
-
   public void addResponse(BatchElementCreatedRS elementCreatedRS) {
     responses.add(elementCreatedRS);
-  }
-
-  public void setResponses(List<BatchElementCreatedRS> responses) {
-    this.responses = responses;
   }
 
   @Override

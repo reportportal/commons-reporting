@@ -18,7 +18,7 @@ import org.owasp.dependencycheck.reporting.ReportGenerator
 plugins {
     id 'java'
     id 'java-library'
-    id 'org.owasp.dependencycheck' version '10.0.4'
+    id 'org.owasp.dependencycheck' version '12.0.1'
 }
 
 def scriptsUrl = 'https://raw.githubusercontent.com/reportportal/gradle-scripts/' +
@@ -40,24 +40,24 @@ java {
 }
 
 wrapper {
-    gradleVersion = '8.10'
+    gradleVersion = '8.12'
 }
 
 dependencies {
     dependencies {
-        implementation "org.springdoc:springdoc-openapi-data-rest:${sprindocAnnotationsVersion}"
+        implementation "io.swagger.core.v3:swagger-annotations-jakarta:2.2.27"
         implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
-        implementation "javax.validation:validation-api:${validationApiVersion}"
-        implementation "org.apache.commons:commons-lang3:${commonsLangVersion}"
+        api "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
+        api "org.apache.commons:commons-lang3:${commonsLangVersion}"
+        implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
 
-        testImplementation "junit:junit:${junitVersion}"
-        testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
-        testImplementation "org.junit.jupiter:junit-jupiter-params:${jupiterVersion}"
-        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
         testImplementation "org.mockito:mockito-junit-jupiter:${mockitoJunitJupiter}"
-        testImplementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
-        testImplementation "javax.el:javax.el-api:${elApiVersion}"
-        testImplementation "org.glassfish:javax.el:${elApiVersion}"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+        testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+        testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+        testImplementation "org.hamcrest:hamcrest:2.2"
+        testImplementation "jakarta.el:jakarta.el-api:6.0.1"
+        testImplementation "org.glassfish:jakarta.el:4.0.2"
 
         // add lombok support
         compileOnly "org.projectlombok:lombok:${lombokVersion}"

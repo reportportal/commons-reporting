@@ -16,34 +16,34 @@
 
 package com.epam.ta.reportportal.ws.annotations;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import java.util.ArrayList;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:ihar_kahadouski@epam.com">Ihar Kahadouski</a>
  */
 public class InCollectionValidator implements ConstraintValidator<In, Collection<String>> {
 
-  private String[] allowedValues;
+  private Set<String> allowedValues;
 
   @Override
   public void initialize(In constraintAnnotation) {
-    allowedValues = new String[constraintAnnotation.allowedValues().length];
-    for (int i = 0; i < constraintAnnotation.allowedValues().length; i++) {
-      allowedValues[i] = constraintAnnotation.allowedValues()[i].toUpperCase();
-    }
+    allowedValues = Arrays.stream(constraintAnnotation.allowedValues())
+        .map(String::toUpperCase)
+        .collect(Collectors.toSet());
   }
 
   @Override
   public boolean isValid(Collection<String> value, ConstraintValidatorContext context) {
-    List<String> upperCaseList = new ArrayList<>();
-    for (String next : value) {
-      upperCaseList.add(next.toUpperCase());
-    }
-    return Arrays.asList(allowedValues).containsAll(upperCaseList);
+    List<String> upperCaseList = value.stream()
+        .map(String::toUpperCase)
+        .toList();
+
+    return allowedValues.containsAll(upperCaseList);
   }
 }

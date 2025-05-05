@@ -18,13 +18,21 @@ package com.epam.ta.reportportal.ws.reporting;
 
 import static com.epam.ta.reportportal.ws.reporting.ValidationConstraints.MIN_ITEM_ATTRIBUTE_VALUE_LENGTH;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author <a href="mailto:ihar_kahadouski@epam.com">Ihar Kahadouski</a>
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemAttributeResource implements Serializable {
 
   private String key;
@@ -32,30 +40,6 @@ public class ItemAttributeResource implements Serializable {
   @NotBlank
   @Size(min = MIN_ITEM_ATTRIBUTE_VALUE_LENGTH)
   private String value;
-
-  public ItemAttributeResource() {
-  }
-
-  public ItemAttributeResource(String key, String value) {
-    this.key = key;
-    this.value = value;
-  }
-
-  public String getKey() {
-    return key;
-  }
-
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
-  }
 
   @Override
   public String toString() {

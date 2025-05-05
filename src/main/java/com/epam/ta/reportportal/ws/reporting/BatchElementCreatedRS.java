@@ -19,13 +19,23 @@ package com.epam.ta.reportportal.ws.reporting;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Element of response for batch save operation.
  *
  * @author Aliaksei_Makayed
  */
+@Setter
+@Getter
 @JsonInclude(Include.NON_NULL)
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class BatchElementCreatedRS extends EntryCreatedAsyncRS {
 
   @JsonProperty("message")
@@ -34,39 +44,8 @@ public class BatchElementCreatedRS extends EntryCreatedAsyncRS {
   @JsonProperty("stackTrace")
   private String stackTrace;
 
-  public BatchElementCreatedRS() {
-
-  }
-
   public BatchElementCreatedRS(String id) {
     super.setId(id);
   }
 
-  public BatchElementCreatedRS(String stackTrace, String message) {
-    setMessage(message);
-    setStackTrace(stackTrace);
-  }
-
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public String getStackTrace() {
-    return stackTrace;
-  }
-
-  public void setStackTrace(String stackTrace) {
-    this.stackTrace = stackTrace;
-  }
-
-  @Override
-  public String toString() {
-    return "BatchElementCreatedRS{" + "message='" + message + '\''
-        + ", stackTrace='" + stackTrace + '\''
-        + '}';
-  }
 }

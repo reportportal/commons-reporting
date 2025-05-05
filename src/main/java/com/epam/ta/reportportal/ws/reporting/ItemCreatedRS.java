@@ -16,32 +16,27 @@
 package com.epam.ta.reportportal.ws.reporting;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Response Model for Start Test Item RQ
  *
  * @author Andrei Varabyeu
  */
+@Setter
+@Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
 public class ItemCreatedRS extends EntryCreatedAsyncRS {
 
-	public ItemCreatedRS() {
+  private String uniqueId;
 
-	}
+  public ItemCreatedRS(String id, String uniqueId) {
+    super(id);
+    this.uniqueId = uniqueId;
+  }
 
-    public ItemCreatedRS(String id, String uniqueId) {
-        super(id);
-        this.uniqueId = uniqueId;
-    }
-
-    private String uniqueId;
-
-	public String getUniqueId() {
-		return uniqueId;
-	}
-
-	public void setUniqueId(String uniqueId) {
-		this.uniqueId = uniqueId;
-	}
 
 }

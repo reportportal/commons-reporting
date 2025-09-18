@@ -117,6 +117,6 @@ public class TestItemResource {
   private String path;
 
   @JsonProperty(value = "hasNestedSteps")
-  private Boolean hasNestedSteps;
+  private boolean hasNestedSteps;
 
 }

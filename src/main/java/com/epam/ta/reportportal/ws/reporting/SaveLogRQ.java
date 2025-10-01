@@ -63,6 +63,7 @@ public class SaveLogRQ {
   @JsonProperty(value = "message")
   private String message;
 
+  @NotNull
   @JsonProperty(value = "level")
   @Size(min = 3, max = 16)
   @Pattern(regexp = "^[A-Za-z0-9 ]+$")

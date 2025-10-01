@@ -25,8 +25,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import java.time.Instant;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import java.time.Instant;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -62,7 +64,8 @@ public class SaveLogRQ {
   private String message;
 
   @JsonProperty(value = "level")
-  @Schema(allowableValues = "error, warn, info, debug, trace, fatal, unknown")
+  @Size(min = 3, max = 16)
+  @Pattern(regexp = "^[A-Za-z0-9 ]+$")
   private String level;
 
   @JsonProperty(value = "file")

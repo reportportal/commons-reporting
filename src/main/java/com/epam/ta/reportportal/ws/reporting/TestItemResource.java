@@ -119,4 +119,7 @@ public class TestItemResource {
   @JsonProperty(value = "hasNestedSteps")
   private boolean hasNestedSteps;
 
+  @JsonProperty(value = "analysisOwner")
+  private String analysisOwner;
+
 }

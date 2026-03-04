@@ -26,7 +26,7 @@ jobs:
     uses: reportportal/.github/.github/workflows/maven-publish.yml@main
     with:
       version: ${{ github.event.inputs.version }}
-      artifact: commons-bom
+      artifact: commons-reporting
       package_suffixes: '.pom,.pom.asc,.pom.md5,.pom.sha1,.pom.asc.md5,.pom.asc.sha1'
     secrets:
       SONATYPE_USER: ${{ secrets.SONATYPE_USER }}

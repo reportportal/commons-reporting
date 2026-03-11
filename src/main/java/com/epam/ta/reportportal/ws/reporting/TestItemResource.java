@@ -21,13 +21,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * JSON Representation of Report Portal domain object
@@ -116,5 +115,11 @@ public class TestItemResource {
 
   @JsonProperty(value = "path")
   private String path;
+
+  @JsonProperty(value = "hasNestedSteps")
+  private boolean hasNestedSteps;
+
+  @JsonProperty(value = "analysisOwner")
+  private String analysisOwner;
 
 }

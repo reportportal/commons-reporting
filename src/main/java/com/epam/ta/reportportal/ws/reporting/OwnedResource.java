@@ -45,6 +45,6 @@ public class OwnedResource {
   private String description;
 
   @JsonProperty(value = "locked")
-  private boolean locked;
+  private Boolean locked;
 
 }

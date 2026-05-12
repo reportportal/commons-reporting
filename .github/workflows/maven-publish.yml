@@ -27,7 +27,7 @@ jobs:
     with:
       version: ${{ github.event.inputs.version }}
       artifact: commons-reporting
-      package_suffixes: '.pom,.pom.asc,.pom.md5,.pom.sha1,.pom.asc.md5,.pom.asc.sha1'
+      package_suffixes: '.jar,.jar.asc,.jar.md5,.jar.sha1,.jar.sha256,.jar.sha512,.jar.asc.md5,.jar.asc.sha1,.jar.asc.sha256,.jar.asc.sha512,-sources.jar,-sources.jar.asc,-sources.jar.md5,-sources.jar.sha1,-sources.jar.sha256,-sources.jar.sha512,-sources.jar.asc.md5,-sources.jar.asc.sha1,-sources.jar.asc.sha256,-sources.jar.asc.sha512,-javadoc.jar,-javadoc.jar.asc,-javadoc.jar.md5,-javadoc.jar.sha1,-javadoc.jar.sha256,-javadoc.jar.sha512,-javadoc.jar.asc.md5,-javadoc.jar.asc.sha1,-javadoc.jar.asc.sha256,-javadoc.jar.asc.sha512,.pom,.pom.asc,.pom.md5,.pom.sha1,.pom.sha256,.pom.sha512,.pom.asc.md5,.pom.asc.sha1,.pom.asc.sha256,.pom.asc.sha512'
     secrets:
       SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
       SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }} 

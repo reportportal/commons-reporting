@@ -111,7 +111,4 @@ public class LaunchResource extends OwnedResource {
   @JsonProperty(value = "retentionPolicy")
   private RetentionPolicy retentionPolicy;
 
-  @JsonProperty(value = "launchType")
-  private LaunchType launchType;
-
 }
